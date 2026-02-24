@@ -3,11 +3,11 @@
   "buildCommand": "npm install",
   "outputDirectory": "public",
   "rewrites": [
-    { "source": "/list-apps", "destination": "/api/index" },
-    { "source": "/run_sse", "destination": "/api/index" },
-    { "source": "/run_ollama_sse", "destination": "/api/index" },
-    { "source": "/context-tools", "destination": "/api/index" },
-    { "source": "/apps/(.*)", "destination": "/api/index" }
+    { "source": "/list-apps", "destination": "/api/index?__path=/list-apps" },
+    { "source": "/run_sse", "destination": "/api/index?__path=/run_sse" },
+    { "source": "/run_ollama_sse", "destination": "/api/index?__path=/run_ollama_sse" },
+    { "source": "/context-tools", "destination": "/api/index?__path=/context-tools" },
+    { "source": "/apps/(.*)", "destination": "/api/index?__path=/apps/$1" }
   ],
   "functions": { "api/index.mjs": { "maxDuration": 60 } },
   "env": { "ADK_ENABLE_COMPACTION": "0" }

@@ -100,6 +100,14 @@ async function createApp() {
   }
 
   const app = express();
+  // Vercel rewrites pass original path as __path query param (apps route)
+  app.use((req, res, next) => {
+    const pathParam = req.query?.__path;
+    if (typeof pathParam === 'string' && pathParam.startsWith('/')) {
+      req.url = pathParam;
+    }
+    next();
+  });
   app.use(cors({ origin: '*' }));
   app.use(express.json({ limit: '50mb' }));
 
