@@ -14,6 +14,7 @@
  */
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cors from 'cors';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const AGENTS_DIR = path.join(__dirname, 'agents');
 
@@ -32,7 +33,6 @@ export default async function handler(req, res) {
 
 async function createApp() {
   const express = (await import('express')).default;
-  const cors = (await import('cors')).default;
   const {
     Runner,
     InMemorySessionService,
