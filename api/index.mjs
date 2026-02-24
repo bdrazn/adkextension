@@ -20,13 +20,19 @@ const AGENTS_DIR = path.join(__dirname, 'agents');
 let appPromise = null;
 
 export default async function handler(req, res) {
-  appPromise = appPromise ?? createApp();
-  const app = await appPromise;
-  return app(req, res);
+  try {
+    appPromise = appPromise ?? createApp();
+    const app = await appPromise;
+    return app(req, res);
+  } catch (err) {
+    console.error('[api] Startup error:', err);
+    res.status(500).json({ error: err.message, stack: err.stack });
+  }
 }
 
 async function createApp() {
   const express = (await import('express')).default;
+  const cors = (await import('cors')).default;
   const {
     Runner,
     InMemorySessionService,
